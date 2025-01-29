@@ -3,7 +3,6 @@ from flask_cors import CORS
 from diffusers import StableDiffusionPipeline
 import torch
 import io
-from pyngrok import ngrok
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -42,14 +41,6 @@ def generate_image():
         print(f"Error: {e}")
         return jsonify({"error": str(e)}), 500
 
-# Start the Flask app with ngrok
+# Start the Flask app
 if __name__ == "__main__":
-    # Set your ngrok authtoken
-    ngrok.set_auth_token("2sK2g0blh55srwQ3530zBDtEjVx_2cNSv9SCMRNjHzvVt1WQW")  # Replace with your ngrok authtoken
-
-    # Open a ngrok tunnel to the Flask app
-    public_url = ngrok.connect(5000).public_url
-    print(f" * Running on {public_url}")
-
-    # Run the Flask app
-    app.run()
+    app.run(host="0.0.0.0", port=10000)
